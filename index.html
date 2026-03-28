@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Royal CarWash</title>
+<link rel="icon" href="title_icon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+:root{
+  --cream:#FAF7F2;--cream2:#F4EFE6;--cream3:#EDE5D8;
+  --gold:#B8924A;--gold-l:#D4B57A;--gold-p:#EDD9B0;--gold-d:#8B6B35;
+  --dark:#2C2416;--text:#3A2E1E;--text2:#7A6A52;--text3:#A89880;
+  --bdr:rgba(184,146,74,.18);--bdr2:rgba(184,146,74,.32);
+  --white:#FFF;--sh:0 2px 24px rgba(60,40,10,.08);
+}
+body{background:var(--cream);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:62px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(250,247,242,.94);backdrop-filter:blur(18px);border-bottom:1px solid transparent;transition:border-color .3s}
+nav.sc{border-bottom-color:var(--bdr)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:35px;font-weight:400;letter-spacing:2px;color:var(--gold);text-decoration:none;flex-shrink:0}
+.logo span{font-style:italic;font-weight:300;color:var(--gold-l)}
+.navl{display:flex;gap:32px;list-style:none}
+.navl a{font-size:14px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text2);text-decoration:none;transition:color .25s}
+.navl a:hover,.navl a.on{color:var(--gold)}
+.nav-tel{font-size:13px;color:var(--gold);text-decoration:none;font-weight:400;flex-shrink:0}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.burger span{display:block;width:22px;height:1.5px;background:var(--text);transition:all .3s}
+.burger.o span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.burger.o span:nth-child(2){opacity:0}
+.burger.o span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mnav{display:none;position:fixed;top:62px;left:0;right:0;z-index:199;background:rgba(250,247,242,.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 24px 24px;flex-direction:column;gap:0}
+.mnav.o{display:flex}
+.mnav a{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);text-decoration:none;padding:14px 0;border-bottom:1px solid var(--bdr);transition:color .2s}
+.mnav a:last-child{border-bottom:none;color:var(--gold);font-size:15px;text-transform:none;letter-spacing:.5px;padding-top:16px}
+.mnav a:hover{color:var(--gold)}
+
+/* PAGES */
+.pg{display:none;min-height:100vh;animation:pin .45s ease both}
+.pg.on{display:block}
+@keyframes pin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 24px 80px;overflow:hidden;text-align:center}
+.hbg{position:absolute;inset:0;background:radial-gradient(ellipse 90% 70% at 50% 30%,rgba(212,181,122,.11) 0%,transparent 65%),linear-gradient(180deg,var(--cream) 0%,var(--cream2) 100%)}
+.hdec{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(580px,88vw);height:min(580px,88vw);border-radius:50%;border:1px solid rgba(184,146,74,.1);animation:br 5s ease-in-out infinite}
+.hdec::before{content:'';position:absolute;inset:42px;border-radius:50%;border:1px solid rgba(184,146,74,.07)}
+@keyframes br{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.03)}}
+.hc{position:relative;z-index:2;max-width:680px}
+.hbadge{display:inline-block;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-p);padding:7px 20px;margin-bottom:30px;animation:fi .8s ease .1s both}
+@keyframes fi{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.htitle{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,10vw,96px);font-weight:300;line-height:.95;letter-spacing:-1px;color:var(--dark);animation:fi .8s ease .25s both}
+.htitle em{font-style:italic;color:var(--gold);display:block}
+.hsub{margin-top:22px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--text2);animation:fi .8s ease .4s both}
+.hcta{margin-top:44px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fi .8s ease .55s both}
+.btn-g{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:background .3s;font-weight:400;-webkit-appearance:none}
+.btn-g:hover{background:var(--gold-d)}
+.btn-o{display:inline-flex;align-items:center;gap:8px;padding:13px 32px;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Jost',sans-serif;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .3s;font-weight:400;-webkit-appearance:none}
+.btn-o:hover{background:var(--gold);color:var(--white)}
+.scue{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);animation:fi .8s ease .9s both}
+.sline{width:1px;height:44px;background:linear-gradient(to bottom,var(--gold-l),transparent);animation:drip 2s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* SECTIONS */
+.sec{padding:80px 40px}
+.lbl{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.lbl::after{content:'';flex:0 0 32px;height:1px;background:var(--gold-p)}
+.h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,50px);font-weight:300;line-height:1.05;color:var(--dark)}
+.h2 em,.h1 em{font-style:italic;color:var(--gold)}
+.h1{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,7vw,68px);font-weight:300;line-height:1;color:var(--dark)}
+
+/* FEAT GRID */
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr);margin-top:44px}
+.feat{background:var(--cream);padding:40px 32px;position:relative;overflow:hidden;transition:background .35s}
+.feat::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.feat:hover::after{transform:scaleX(1)}
+.feat:hover{background:rgba(212,181,122,.06)}
+.fnum{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--gold-p);line-height:1;margin-bottom:14px}
+.ftitle{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--dark);margin-bottom:8px}
+.ftext{font-size:12px;line-height:1.85;color:var(--text2)}
+
+/* PACKAGE TEASE */
+.pkrow{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:0}
+.pkcard{border:1px solid var(--bdr);padding:32px 24px;cursor:pointer;position:relative;overflow:hidden;transition:all .35s;text-decoration:none;display:block;background:var(--white)}
+.pkcard:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:var(--sh)}
+.pkcard.ft{border-color:var(--gold)}
+.pkbadge{position:absolute;top:0;right:0;background:var(--gold);color:var(--white);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:5px 12px}
+.pktier{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.pkname{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--dark);line-height:1.1;margin-bottom:8px}
+.pkname em{font-style:italic;color:var(--gold);display:block}
+.pkdesc{font-size:12px;line-height:1.8;color:var(--text2);margin-bottom:18px}
+.pkfrom{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold-l)}
+.pkfrom sub{font-size:12px}
+
+/* QUOTE */
+.qband{background:var(--cream2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:72px 40px;text-align:center}
+.qmark{font-family:'Cormorant Garamond',serif;font-size:68px;color:var(--gold-p);line-height:.4;display:block;margin-bottom:14px}
+.qtext{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.5vw,36px);font-weight:300;font-style:italic;color:var(--dark);max-width:660px;margin:0 auto;line-height:1.45}
+
+/* GALLERY */
+.gstrip{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;margin-top:40px}
+.gi{background:var(--cream3);border:1px solid var(--bdr);position:relative;overflow:hidden;cursor:pointer;min-height:140px}
+.gi:nth-child(1){grid-row:span 2}
+.gov{position:absolute;inset:0;background:rgba(42,30,10,0);display:flex;align-items:flex-end;padding:16px;transition:background .4s}
+.gi:hover .gov{background:rgba(42,30,10,.32)}
+.gcap{color:var(--white);font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:0;transform:translateY(6px);transition:all .35s}
+.gi:hover .gcap{opacity:1;transform:none}
+.gph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,4vw,44px);color:rgba(184,146,74,.22);font-style:italic;padding:16px;text-align:center;min-height:inherit}
+
+/* SERVICES */
+.svctop{padding:96px 40px 36px;max-width:660px}
+.csec{padding:0 40px 32px}
+.cintr{font-size:13px;color:var(--text2);line-height:1.8;margin-bottom:24px;max-width:520px}
+.cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ccard{border:1px solid var(--bdr);padding:18px 14px;cursor:pointer;transition:all .3s;text-align:center;background:var(--white)}
+.ccard:hover{border-color:var(--gold)}
+.ccard.sel{border-color:var(--gold);background:var(--cream2)}
+.ccard.sel .cltr{color:var(--gold)}
+.cltr{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;color:var(--dark);line-height:1;transition:color .3s}
+.cex{font-size:10px;color:var(--text3);margin-top:5px;line-height:1.5}
+
+/* BUILDER */
+.bldr{padding:0 40px 20px}
+.bnote{background:rgba(212,181,122,.09);border:1px solid var(--gold-p);padding:12px 18px;font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:28px}
+.bnote strong{color:var(--gold);font-weight:400}
+.sgrp{margin-bottom:28px}
+.sgt{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);padding-bottom:9px;border-bottom:1px solid var(--bdr);margin-bottom:10px}
+.sitems{display:flex;flex-direction:column;gap:7px}
+.si{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;border:1px solid var(--bdr);cursor:pointer;transition:all .3s;background:var(--white);position:relative;-webkit-tap-highlight-color:rgba(184,146,74,.1)}
+.si:hover{border-color:var(--gold-l)}
+.si.sel{border-color:var(--gold);background:rgba(212,181,122,.05)}
+.si.sel::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold)}
+.sl{flex:1;min-width:0}
+.sn{font-size:13px;color:var(--dark);font-weight:400;line-height:1.3}
+.sd{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4}
+.sr{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.sp{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--gold);white-space:nowrap}
+.sc2{width:22px;height:22px;border:1px solid var(--bdr);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s}
+.si.sel .sc2{background:var(--gold);border-color:var(--gold);color:var(--white)}
+.sci{font-size:11px;line-height:1}
+.tipw{position:relative;display:inline-flex}
+.ticon{width:16px;height:16px;border:1px solid var(--text3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text3);cursor:help;flex-shrink:0}
+.tbox{position:absolute;bottom:calc(100% + 8px);right:0;width:230px;background:var(--white);border:1px solid var(--bdr);padding:11px 13px;font-size:11px;color:var(--text2);line-height:1.6;opacity:0;visibility:hidden;transition:all .2s;z-index:20;box-shadow:var(--sh);pointer-events:none}
+.tipw:hover .tbox{opacity:1;visibility:visible}
+
+/* TOTAL */
+.total{position:sticky;bottom:0;background:rgba(250,247,242,.97);backdrop-filter:blur(20px);border-top:1px solid var(--bdr);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.tlbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text2)}
+.tsum{font-size:11px;color:var(--text3);margin-top:2px}
+.tnum{font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--gold)}
+.tnum sup{font-size:15px}
+.tact{display:flex;gap:10px;align-items:center}
+
+/* CAFE */
+.cafein{padding:96px 40px 52px;display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+.casid{border:1px solid var(--bdr);padding:32px;background:var(--cream2)}
+.calbl{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.casid p{font-size:13px;color:var(--text2);line-height:1.9;margin-bottom:18px}
+.cstats{display:flex;gap:24px;flex-wrap:wrap}
+.csval{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold)}
+.cslbl{font-size:10px;color:var(--text3);letter-spacing:.5px}
+.msec{padding:0 40px 52px}
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr)}
+.mc{background:var(--white);padding:26px 22px;transition:background .3s}
+.mc:hover{background:var(--cream2)}
+.mcat{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.mname{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--dark);margin-bottom:5px}
+.mnote{font-size:11px;color:var(--text2);line-height:1.65;margin-bottom:12px}
+.mprice{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--gold-l)}
+.cgal{padding:0 40px 72px;display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:auto auto;gap:10px}
+.cgi{background:var(--cream3);border:1px solid var(--bdr);overflow:hidden;min-height:160px}
+.cgi:nth-child(1){grid-row:span 2}
+.cgiph{width:100%;min-height:160px;display:flex;align-items:center;justify-content:center;font-size:44px;color:rgba(184,146,74,.2)}
+.cgicap{padding:12px 14px;border-top:1px solid var(--bdr)}
+.cgicap strong{display:block;font-size:12px;color:var(--dark);font-weight:400;margin-bottom:2px}
+.cgicap span{font-size:11px;color:var(--text3)}
+
+/* CONTACTS */
+.conwrap{padding:96px 40px 72px;display:grid;grid-template-columns:1fr 1fr;gap:52px}
+.cblk{margin-bottom:32px}
+.clbl2{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:9px}
+.cval{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--dark);text-decoration:none;display:block;line-height:1.4;transition:color .3s}
+.cval:hover{color:var(--gold)}
+.cnote{font-size:11px;color:var(--text3);margin-top:3px}
+.htbl{border:1px solid var(--bdr);overflow:hidden}
+.hr2{display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--bdr)}
+.hr2:last-child{border-bottom:none}
+.hday{font-size:12px;color:var(--text2)}
+.htime{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold)}
+.mapbox{border:1px solid var(--bdr);min-height:280px;background:var(--cream2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--text3);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:17px;margin-bottom:18px}
+.mpicon{font-size:30px;color:var(--gold)}
+.fwrap{border:1px solid var(--bdr);padding:28px;background:var(--white)}
+.flbl2{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.ffields{display:flex;flex-direction:column;gap:9px}
+input[type=text],input[type=tel],textarea{width:100%;background:var(--cream);border:1px solid var(--bdr);padding:12px 15px;color:var(--text);font-family:'Jost',sans-serif;font-size:13px;outline:none;transition:border .3s;-webkit-appearance:none;border-radius:0;font-weight:300}
+input:focus,textarea:focus{border-color:var(--gold)}
+textarea{resize:none}
+::placeholder{color:var(--text3)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--bdr);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:var(--cream2)}
+.flogo{font-family:'Cormorant Garamond',serif;font-size:17px;letter-spacing:5px;color:var(--gold);font-weight:600}
+.fcopy{font-size:11px;color:var(--text3)}
+.flinks{display:flex;gap:18px;flex-wrap:wrap}
+.flinks a{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text2);text-decoration:none;transition:color .3s}
+.flinks a:hover{color:var(--gold)}
+
+/* REVEAL */
+.r{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
+.r.d1{transition-delay:.1s}.r.d2{transition-delay:.2s}.r.d3{transition-delay:.3s}
+.r.v{opacity:1;transform:none}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .navl,.nav-tel{display:none}
+  .burger{display:flex}
+  .sec{padding:56px 20px}
+  .svctop{padding:80px 20px 28px}
+  .csec{padding:0 20px 24px}
+  .bldr{padding:0 20px 16px}
+  .total{padding:14px 20px}
+  .cafein{padding:80px 20px 40px;grid-template-columns:1fr;gap:28px}
+  .msec{padding:0 20px 40px}
+  .cgal{padding:0 20px 56px;grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .cgi:nth-child(1){grid-row:span 1}
+  .conwrap{padding:80px 20px 56px;grid-template-columns:1fr;gap:36px}
+  footer{padding:24px 20px;flex-direction:column;gap:10px;text-align:center}
+  .qband{padding:56px 20px}
+  .fgrid{grid-template-columns:1fr}
+  .pkrow{grid-template-columns:1fr}
+  .cgrid{grid-template-columns:repeat(2,1fr)}
+  .mgrid{grid-template-columns:1fr 1fr}
+  .gstrip{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gi:nth-child(1){grid-row:span 1;grid-column:span 2;min-height:200px}
+}
+@media(max-width:580px){
+  .htitle{font-size:clamp(44px,14vw,68px)}
+  .hcta{flex-direction:column;align-items:center}
+  .btn-g,.btn-o{width:100%;justify-content:center;max-width:260px}
+  .cgrid{grid-template-columns:repeat(2,1fr)}
+  .mgrid{grid-template-columns:1fr}
+  .cgal{grid-template-columns:1fr}
+  .cgi:nth-child(1){grid-row:span 1}
+  .total{flex-direction:column;align-items:flex-start;gap:10px}
+  .tact{width:100%}
+  .tact .btn-g{flex:1;justify-content:center}
+  .gstrip{grid-template-columns:1fr}
+  .gi:nth-child(1){grid-column:span 1;min-height:200px}
+  .fgrid{gap:10px;background:none;border:none}
+  .feat{border:1px solid var(--bdr)}
+  .sr{flex-direction:row}
+}
+.upside-down {
+    display: inline-block; /* Необходимо для работы transform */
+    transform: scaleX(-1); /* Отразить по горизонтали */
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="logo" href="#" onclick="go('home');return false">Royal</a>
+  <ul class="navl">
+    <li><a href="#" id="nl-home" class="on" onclick="go('home');return false">Головна</a></li>
+    <li><a href="#" id="nl-services" onclick="go('services');return false">Послуги</a></li>
+    <li><a href="#" id="nl-cafe" onclick="go('cafe');return false">Кав'ярня</a></li>
+    <li><a href="#" id="nl-contacts" onclick="go('contacts');return false">Контакти</a></li>
+  </ul>
+  <a class="nav-tel" href="tel:+380930282826">+38 (093) 028-28-26</a>
+  <button class="burger" id="burger" onclick="tmenu()" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mnav" id="mn">
+  <a href="#" onclick="go('home');tmenu();return false">Головна</a>
+  <a href="#" onclick="go('services');tmenu();return false">Послуги та ціни</a>
+  <a href="#" onclick="go('cafe');tmenu();return false">Кав'ярня</a>
+  <a href="#" onclick="go('contacts');tmenu();return false">Контакти</a>
+  <a href="tel:+380930282826">+38 (093) 028-28-26</a>
+</div>
+
+<!-- ██ HOME ██ -->
+<div class="pg on" id="pg-home">
+  <section class="hero">
+    <div class="hbg"></div><div class="hdec"></div>
+    <div class="hc">
+      <div class="hbadge">Премiум автомийка · Кав'ярня</div>
+      <h1 class="htitle">Ваш автомобіль<em>заслуговує</em>найкращого</h1>
+      <div class="hcta">
+        <a class="btn-g" href="#" onclick="go('services');return false">Обрати послугу</a>
+        <a class="btn-o" href="#" onclick="go('cafe');return false">Кав'ярня</a>
+      </div>
+    </div>
+    <div class="scue"><div class="sline"></div>Гортайте</div>
+  </section>
+
+  <section class="sec">
+    <div class="lbl">Чому Royal</div>
+    <h2 class="h2 r">Час чистоти для <em>авто</em> — <br>момент релаксу для <em>вас</em></h2>
+    <div class="fgrid r d1">
+      <div class="feat"><div class="fnum">01</div><div class="ftitle">Бездоганний результат щоразу</div><p class="ftext">Використову<span class="upside-down">э</span>мо лише професiйну хiмiю свiтових брендiв та перевiренi технологii. Ваше авто в руках майстрiв, якi знають цiну справжньоi чистоти.</p></div>
+      <div class="feat"><div class="fnum">02</div><div class="ftitle">Ваш час — наш прiоритет</div><p class="ftext">Вiдпочивайте у затишнiй кав'ярнi поруч, поки ми працю<span class="upside-down">э</span>мо. Ароматна кава, свiжа випiчка та комфортна атмосфера перетворять очiкування на при<span class="upside-down">э</span>мну паузу.</p></div>
+      <div class="feat"><div class="fnum">03</div><div class="ftitle">Турбота, яку ви вiдчуєте</div><p class="ftext">Ми не просто ми<span class="upside-down">э</span>мо — ми дба<span class="upside-down">э</span>мо про кожну дрiбницю, вiд колiсних дискiв до важкодоступних мiсць у салонi. Поверта<span class="upside-down">э</span>мо вашому авто вигляд нового.</p></div>
+    </div>
+  </section>
+
+  <div class="qband">
+    <span class="qmark">"</span>
+    <p class="qtext r">Чистий автомобіль — це не розкіш.<br>Це повага до себе.</p>
+  </div>
+
+  <section class="sec">
+    <div class="lbl">Пакети мийки</div>
+    <h2 class="h2 r" style="margin-bottom:32px">Оберіть <em>свій</em> формат</h2>
+    <div class="pkrow r d1">
+      <a class="pkcard" href="#" onclick="go('services','express');return false">
+        <div class="pktier">Швидкий</div>
+        <div class="pkname">Експрес</div>
+        <p class="pkdesc">Швидке освiження зовнi: Двофазна мийка, без витирання.</p><br>
+        <div class="pkfrom">від 250 ₴</div>
+      </a>
+      <a class="pkcard" href="#" onclick="go('services','wash');return false">
+        <div class="pktier">Базовий</div>
+        <div class="pkname">Мийка</em></div>
+        <p class="pkdesc">Повний зовнiшнiй догляд: Трифазна мийка + сушка + килимки.</p><br>
+        <div class="pkfrom">від 450 ₴</div>
+      </a>
+      <a class="pkcard ft" href="#" onclick="go('services','complex');return false">
+        <div class="pkbadge">Популярне</div>
+        <div class="pktier">Стандартний</div>
+        <div class="pkname">Комплекс</div>
+        <p class="pkdesc">Догляд ззовнi та зсередини: Трифазна мийка, сушка, пилосос, вологе прибирання, вiкна, чорнiння гуми.</p>
+        <div class="pkfrom">від 800 ₴</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:0">
+    <div class="lbl">Галерея</div>
+    <h2 class="h2 r" style="margin-bottom:0">Наша <em>мийка</em></h2>
+    <div class="gstrip r d1">
+      <div class="gi"><div class="gph" style="min-height:300px">Ваше головне фото</div><div class="gov"><span class="gcap">Зона мийки</span></div></div>
+      <div class="gi"><div class="gph">До / Після</div><div class="gov"><span class="gcap">Результат</span></div></div>
+      <div class="gi"><div class="gph">Деталі</div><div class="gov"><span class="gcap">Якість</span></div></div>
+      <div class="gi"><div class="gph">Кав'ярня</div><div class="gov"><span class="gcap">Відпочинок</span></div></div>
+      <div class="gi"><div class="gph">Результат</div><div class="gov"><span class="gcap">Блиск</span></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ██ SERVICES ██ -->
+<div class="pg" id="pg-services">
+  <div class="svctop">
+    <div class="lbl">Послуги та цiни</div>
+    <h1 class="h1">Оберiть<br><em>що вам потрiбно</em></h1>
+    <p style="font-size:13px;color:var(--text2);line-height:1.85;margin-top:18px">Спочатку вкажiть клас авто, потiм — послуги. Цiна раху<span class="upside-down">э</span>ться вiдразу.</p>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="csec">
+    <div class="lbl">Крок 1 — Клас автомобiля</div>
+    <p class="cintr">Цiна залежить вiд розмiру авто. Оберiть свiй:</p>
+    <div class="cgrid">
+      <div class="ccard sel" onclick="selClass('A',this)"><div class="cltr">A</div><div class="cex">Легковий седан</div></div>
+      <div class="ccard" onclick="selClass('B',this)"><div class="cltr">B</div><div class="cex">Бiзнес-клас, Мiнiвен, Позашляховик-компакт</div></div>
+      <div class="ccard" onclick="selClass('C',this)"><div class="cltr">C</div><div class="cex">Позашляховик</div></div>
+      <div class="ccard" onclick="selClass('D',this)"><div class="cltr">D</div><div class="cex">Мiкроавтобус</div></div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="bldr">
+    <div class="lbl">Крок 2 — Оберiть послуги</div>
+    <div class="bnote"><strong>Порада:</strong> Можна обрати один пакет або скласти власний набiр з окремих послуг. Вибирайте все що хочете — цiна раху<span class="upside-down">э</span>ться автоматично.</div>
+
+    <div class="sgrp">
+      <div class="sgt">Мийка — пакети</div>
+      <div class="sitems">
+        <div class="si" onclick="tgl(this,'express')" data-key="express">
+          <div class="sl"><div class="sn">Експрес мийка</div><div class="sd">Без витирання авто. Швидке зовнiшнє очищення.</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Двофазна мийка кузову, ополiскування, витирання вiкон. Iдеально коли часу обмаль.</div></div>
+            <div class="sp" id="p-express">250 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+        <div class="si" onclick="tgl(this,'wash')" data-key="wash">
+          <div class="sl"><div class="sn">Мийка</div><div class="sd">Трифазна мийка кузову + чистка килимкiв</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Передмийка, основна мийка, вiск, килимки, сушка.</div></div>
+            <div class="sp" id="p-wash">450 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+        <div class="si" onclick="tgl(this,'complex')" data-key="complex">
+          <div class="sl"><div class="sn">Комплекс</div><div class="sd">Трифазна мийка, вiск, пилосос, вологе прибирання, витирання вiкон, чорнiння гуми</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Повний зовнiшній та внутрiшнiй догляд в одному пакетi.</div></div>
+            <div class="sp" id="p-complex">800 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+        <div class="si" onclick="tgl(this,'detail')" data-key="detail">
+          <div class="sl"><div class="sn">Детальний комплекс</div><div class="sd">Торнадор, трифазна мийка, осмос, вiск, пилосос, вологе прибирання, витирання вiкон, чорнiння гуми</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Максимальний рівень. Торнадор глибоко чистить салон. </div></div>
+            <div class="sp" id="p-detail">1200 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sgrp">
+      <div class="sgt">Прибирання салону</div>
+      <div class="sitems">
+        <div class="si" onclick="tgl(this,'vacuum')" data-key="vacuum">
+          <div class="sl"><div class="sn">Пилосос</div><div class="sd">Ретельна чистка салону пилососом</div></div>
+          <div class="sr"><div class="sp" id="p-vacuum">200 ₴</div><div class="sc2"><span class="sci">✓</span></div></div>
+        </div>
+        <div class="si" onclick="tgl(this,'wet')" data-key="wet">
+          <div class="sl"><div class="sn">Вологе прибирання</div><div class="sd">Протирання всіх поверхонь в салоні</div></div>
+          <div class="sr"><div class="sp" id="p-wet">150 ₴</div><div class="sc2"><span class="sci">✓</span></div></div>
+        </div>
+        <div class="si" onclick="tgl(this,'wins')" data-key="wins">
+          <div class="sl"><div class="sn">Витирання вікон (з середини)</div><div class="sd">Без розводів — кристальна прозорість</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Спеціальний склад без розводів. Помітний ефект у темну пору.</div></div>
+            <div class="sp" id="p-wins">150 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sgrp">
+      <div class="sgt">Додаткові послуги</div>
+      <div class="sitems">
+        <div class="si" onclick="tgl(this,'hardwax')" data-key="hardwax">
+          <div class="sl"><div class="sn">Твердий вiск</div><div class="sd">Премiум захист кузову до 3 місяців</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Tвердий віск. Глибокий блиск i захист лаку до 3 мiсяцiв.</div></div>
+            <div class="sp" id="p-hardwax">750 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+        <div class="si" onclick="tgl(this,'ceramicwax')" data-key="ceramicwax">
+          <div class="sl"><div class="sn">Керамічний віск</div><div class="sd">Тверда плівка на кузові — для всіх класів однакова ціна</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Керамічний склад — захист від води, бруду і подряпин на 2-4 місяці.</div></div>
+            <div class="sp" id="p-ceramicwax">400 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+        <div class="si" onclick="tgl(this,'leather')" data-key="leather">
+          <div class="sl"><div class="sn">Обробка шкіри</div><div class="sd">Живлення і захист шкіряного салону</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Очищення, живлення і захист натуральної та штучної шкіри від розтріскування.</div></div>
+            <div class="sp" id="p-leather">750 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+        <div class="si" onclick="tgl(this,'plastic')" data-key="plastic">
+          <div class="sl"><div class="sn">Обробка пластику</div><div class="sd">Відновлення кольору і захист пластику</div></div>
+          <div class="sr"><div class="sp" id="p-plastic">450 ₴</div><div class="sc2"><span class="sci">✓</span></div></div>
+        </div>
+        <div class="si" onclick="tgl(this,'discs')" data-key="discs">
+          <div class="sl"><div class="sn">Чистка дисків</div><div class="sd">До блиску — однакова ціна для всіх класів</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Ручна чистка кожного диска — гальмівний пил, наліт, бруд.</div></div>
+            <div class="sp" id="p-discs">200 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+        <div class="si" onclick="tgl(this,'bitumen')" data-key="bitumen">
+          <div class="sl"><div class="sn">Очищення бітуму</div><div class="sd">Видалення асфальтових і смолистих плям</div></div>
+          <div class="sr"><div class="sp" id="p-bitumen">400 ₴</div><div class="sc2"><span class="sci">✓</span></div></div>
+        </div>
+        <div class="si" onclick="tgl(this,'rubber')" data-key="rubber">
+          <div class="sl"><div class="sn">Чорніння гуми</div><div class="sd">Шини виглядають як нові — для всіх класів однаково</div></div>
+          <div class="sr"><div class="sp" id="p-rubber">150 ₴</div><div class="sc2"><span class="sci">✓</span></div></div>
+        </div>
+        <div class="si" onclick="tgl(this,'bugs')" data-key="bugs">
+          <div class="sl"><div class="sn">Мошка</div><div class="sd">Видалення слідів комах з кузову і скла</div></div>
+          <div class="sr"><div class="sp" id="p-bugs">150 ₴</div><div class="sc2"><span class="sci">✓</span></div></div>
+        </div>
+        <div class="si" onclick="tgl(this,'rain_f')" data-key="rain_f">
+          <div class="sl"><div class="sn">Антидощ — лобове скло</div><div class="sd">Вода скочується при 60+ км/год</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Гідрофобне покриття лобового скла. Для всіх вікон — дивіться нижче.</div></div>
+            <div class="sp" id="p-rain_f">600 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+        <div class="si" onclick="tgl(this,'rain_a')" data-key="rain_a">
+          <div class="sl"><div class="sn">Антидощ — всі вікна</div><div class="sd">Максимальний захист всіх вікон</div></div>
+          <div class="sr"><div class="sp" id="p-rain_a">1200 ₴</div><div class="sc2"><span class="sci">✓</span></div></div>
+        </div>
+        <div class="si" onclick="tgl(this,'osmos')" data-key="osmos">
+          <div class="sl"><div class="sn">Осмос</div><div class="sd">Видалення мінерального нальоту зі скла</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Прибирає білий наліт від жорсткої води. Особливо видно на темних авто.</div></div>
+            <div class="sp" id="p-osmos">100 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+        <div class="si" onclick="tgl(this,'engine')" data-key="engine">
+          <div class="sl"><div class="sn">Мийка двигуна</div><div class="sd">Безпечно для електроніки</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Видаляємо масло і бруд парою. Двигун виглядає охайно і краще охолоджується.</div></div>
+            <div class="sp" id="p-engine">400 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+        <div class="si" onclick="tgl(this,'chem')" data-key="chem">
+          <div class="sl"><div class="sn">Хімчистка салону</div><div class="sd">Глибоке очищення тканини, шкіри, стелі — результат як новий салон</div></div>
+          <div class="sr">
+            <div class="tipw"><div class="ticon">?</div><div class="tbox">Повна хімчистка: сидіння, карти дверей, стеля, килимки. Плями, бактерії, запахи — все зникає.</div></div>
+            <div class="sp">від</div><div class="sp" id="p-chem">4000 ₴</div><div class="sc2"><span class="sci">✓</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="total">
+    <div><div class="tlbl">Вартість</div><div class="tsum" id="tsum">Нічого не обрано</div></div>
+    <div class="tnum" id="tnum">0 <sup>₴</sup></div>
+    <div class="tact">
+      <button class="btn-o" onclick="reset()">Скинути</button>
+      <a class="btn-g" href="#" onclick="openModal();return false">Записатись</a>
+    </div>
+  </div>
+</div>
+  
+
+<!-- ██ CAFE ██ -->
+<div class="pg" id="pg-cafe">
+  <div class="cafein">
+    <div>
+      <div class="lbl">Кав'ярня</div>
+      <h1 class="h1">Час для<br><em>себе</em></h1>
+      <p style="font-size:13px;color:var(--text2);line-height:1.9;margin-top:18px;max-width:380px">Поки ваша машина у надійних руках — насолоджуйтеся ароматною кавою та свіжою випічкою.</p>
+    </div>
+    <div class="casid">
+      <div class="calbl">Про нас</div>
+      <p>Свіжообсмажена зернова кава. Домашня випічка щодня. Wi-Fi і розетки — зручне місце почекати або просто відпочити.</p>
+      <div class="cstats">
+        <div><div class="csval">07:00</div><div class="cslbl">відкриваємось</div></div>
+        <div><div class="csval">22:00</div><div class="cslbl">закриваємось</div></div>
+        <div><div class="csval">Wi-Fi</div><div class="cslbl">безкоштовно</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="msec">
+    <div class="lbl">Меню</div>
+    <h2 class="h2 r" style="margin-bottom:28px">Напої та <em>смаколики</em></h2>
+    <div class="mgrid">
+      <div class="mc"><div class="mcat">Кава</div><div class="mname">Еспресо</div><div class="mnote">-</div><div class="mprice">55 ₴</div></div>
+      <div class="mc"><div class="mcat">Кава</div><div class="mname">Капучіно</div><div class="mnote">-</div><div class="mprice">75 ₴</div></div>
+      <div class="mc"><div class="mcat">Кава</div><div class="mname">Флет Вайт</div><div class="mnote">-</div><div class="mprice">80 ₴</div></div>
+      <div class="mc" style="border-top:1px solid var(--bdr)"><div class="mcat">Фірмове</div><div class="mname">Раф лавандовий</div><div class="mnote">-</div><div class="mprice">95 ₴</div></div>
+      <div class="mc" style="border-top:1px solid var(--bdr)"><div class="mcat">Чай</div><div class="mname">Earl Grey</div><div class="mnote">-</div><div class="mprice">65 ₴</div></div>
+      <div class="mc" style="border-top:1px solid var(--bdr)"><div class="mcat">Напій</div><div class="mname">Лимонад</div><div class="mnote">-</div><div class="mprice">80 ₴</div></div>
+      <div class="mc" style="border-top:1px solid var(--bdr)"><div class="mcat">Випічка</div><div class="mname">Круасан</div><div class="mnote">-</div><div class="mprice">65 ₴</div></div>
+      <div class="mc" style="border-top:1px solid var(--bdr)"><div class="mcat">Їжа</div><div class="mname">Тост з лососем</div><div class="mnote">-</div><div class="mprice">120 ₴</div></div>
+      <div class="mc" style="border-top:1px solid var(--bdr)"><div class="mcat">Десерт</div><div class="mname">Брауні</div><div class="mnote">-</div><div class="mprice">70 ₴</div></div>
+    </div>
+  </div>
+
+  <div class="cgal">
+    <div class="cgi"><div class="cgiph" style="min-height:340px">фото кав'ярні</div><div class="cgicap"><strong>Простір кав'ярні</strong><span>Затишна зона очікування</span></div></div>
+    <div class="cgi"><div class="cgiph">☕</div><div class="cgicap"><strong>Свіжа кава</strong><span>Зернова щодня</span></div></div>
+    <div class="cgi"><div class="cgiph">🥐</div><div class="cgicap"><strong>Домашня випічка</strong><span>Щоранку свіже</span></div></div>
+    <div class="cgi"><div class="cgiph">✨</div><div class="cgicap"><strong>Вид на мийку</strong><span>Спостерігайте крізь скло</span></div></div>
+    <div class="cgi"><div class="cgiph">🌿</div><div class="cgicap"><strong>Атмосфера</strong><span>Спокій і комфорт</span></div></div>
+  </div>
+</div>
+  
+
+<!-- ██ CONTACTS ██ -->
+<div class="pg" id="pg-contacts">
+  <div class="conwrap">
+    <div>
+      <div class="lbl">Контакти</div>
+      <h1 class="h1" style="margin-bottom:44px">Знайдіть<br>нас <em>легко</em></h1>
+      <div class="cblk"><div class="clbl2">Адреса</div><a class="cval" href="#">вул. Центральна, 20В, Гора</a><div class="cnote">Зручне паркування</div></div>
+      <div class="cblk"><div class="clbl2">Телефон</div><a class="cval" href="tel:+380930282826">+38 (093) 028-28-26</a><div class="cnote">З 08:00 до 20:00 щодня</div></div>
+      <div class="cblk"><div class="clbl2">Instagram</div><a class="cval" href="https://www.instagram.com/royal_carwash.gora/">@royal_carwash.gora</a><div class="cnote">Фото до/після, акції, новини</div></div>
+      <div class="cblk">
+        <div class="clbl2">Графік роботи</div>
+        <div class="htbl" style="margin-top:10px">
+          <div class="hr2"><span class="hday">Мийка</span><span class="htime">Щоденно 08:00 — 20:00</span></div>
+          <div class="hr2"><span class="hday">Кав'ярня</span><span class="htime">Щоденно 08:00 — 20:00</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>Royal CarWash & Coffee</div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1272.4647217577344!2d30.855938039672846!3d50.36787009999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4e9000cab87ff%3A0x530657a4613a575f!2sRoyal%20CarWash!5e0!3m2!1sru!2sua!4v1774730244531!5m2!1sru!2sua" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      <div class="fwrap">
+        <div class="flbl2">Напишіть нам</div>
+        <div class="ffields">
+          <input type="text" placeholder="Ваше ім'я">
+          <input type="tel" placeholder="Номер телефону">
+          <textarea rows="3" placeholder="Ваше питання"></textarea>
+          <button class="btn-g" style="align-self:flex-start" id="sbtn" onclick="send()">Надіслати</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<footer>
+    <div class="flogo">Royal</div><div class="fcopy">© 2026 Royal CarWash & Coffee · Гора</div>
+    <div class="flinks"><a href="#" onclick="go('home');return false">Головна</a><a href="#" onclick="go('services');return false">Послуги</a><a href="#" onclick="go('cafe');return false">Кав'ярня</a></div>
+  </footer>
+
+
+<script>
+// ── DATA ──
+const P={
+  express:{A:250,B:350,C:450,D:550},
+  wash:{A:450,B:550,C:650,D:750},
+  complex:{A:800,B:900,C:1000,D:1100},
+  detail:{A:1200,B:1400,C:1600,D:1800},
+  vacuum:{A:200,B:250,C:300,D:350},
+  wet:{A:150,B:150,C:200,D:200},
+  wins:{A:150,B:150,C:200,D:200},
+  hardwax:{A:750,B:850,C:950,D:1050},
+  ceramicwax:{A:400,B:400,C:400,D:400},
+  leather:{A:750,B:850,C:950,D:1050},
+  plastic:{A:450,B:550,C:650,D:750},
+  discs:{A:200,B:200,C:200,D:200},
+  bitumen:{A:400,B:500,C:600,D:700},
+  rubber:{A:150,B:150,C:150,D:150},
+  bugs:{A:150,B:150,C:150,D:150},
+  rain_f:{A:600,B:600,C:600,D:600},
+  rain_a:{A:1200,B:1200,C:1200,D:1200},
+  osmos:{A:100,B:100,C:150,D:150},
+  engine:{A:400,B:500,C:600,D:700},
+  chem:{A:4000,B:5000,C:6000,D:7000},
+};
+const NM={express:'Експрес мийка',wash:'Мийка',complex:'Комплекс',detail:'Детальна',vacuum:'Пилосос',wet:'Вологе прибирання',wins:'Витирання вікон',hardwax:'Твердий віск',ceramicwax:'Керамічний віск',leather:'Обробка шкіри',plastic:'Обробка пластику',discs:'Чистка дисків',bitumen:'Бітум',rubber:'Чорніння гуми',bugs:'Мошка',rain_f:'Антидощ лобове',rain_a:'Антидощ всі',osmos:'Осмос',engine:'Мийка двигуна',chem:'Хімчистка'};
+
+let cls='A', sel={};
+
+function selClass(c,el){
+  cls=c;
+  document.querySelectorAll('.ccard').forEach(x=>x.classList.remove('sel'));
+  el.classList.add('sel');
+  Object.keys(P).forEach(k=>{
+    const el2=document.getElementById('p-'+k);
+    if(el2) el2.textContent=P[k][c].toLocaleString('uk-UA')+' ₴';
+  });
+  updTotal();
+}
+
+function tgl(el,k){
+  el.classList.toggle('sel');
+  if(el.classList.contains('sel')) sel[k]=true;
+  else delete sel[k];
+  updTotal();
+}
+
+function updTotal(){
+  const keys=Object.keys(sel);
+  const sum=keys.reduce((a,k)=>a+(P[k]?P[k][cls]:0),0);
+  document.getElementById('tnum').innerHTML=sum>0?sum.toLocaleString('uk-UA')+' <sup>₴</sup>':'0 <sup>₴</sup>';
+  if(!keys.length){document.getElementById('tsum').textContent='Нічого не обрано';return;}
+  const names=keys.slice(0,2).map(k=>NM[k]||k);
+  const more=keys.length>2?' + ще '+(keys.length-2):'';
+  document.getElementById('tsum').textContent='Клас '+cls+' · '+names.join(', ')+more;
+}
+
+function reset(){
+  sel={};
+  document.querySelectorAll('.si.sel').forEach(el=>el.classList.remove('sel'));
+  updTotal();
+}
+
+// ── NAVIGATION ──
+function go(pg,key){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.getElementById('pg-'+pg).classList.add('on');
+  document.querySelectorAll('.navl a').forEach(a=>a.classList.remove('on'));
+  const nl=document.getElementById('nl-'+pg);
+  if(nl) nl.classList.add('on');
+  window.scrollTo({top:0,behavior:'instant'});
+  if(key){
+    setTimeout(()=>{
+      const el=document.querySelector('[data-key="'+key+'"]');
+      if(el){el.scrollIntoView({behavior:'smooth',block:'center'});tgl(el,key);}
+    },350);
+  }
+  initReveal();
+}
+
+// ── BURGER ──
+function tmenu(){
+  const m=document.getElementById('mn'),b=document.getElementById('burger');
+  m.classList.toggle('o');b.classList.toggle('o');
+}
+document.addEventListener('click',function(e){
+  const mn=document.getElementById('mn'),b=document.getElementById('burger');
+  if(mn.classList.contains('o')&&!mn.contains(e.target)&&!b.contains(e.target)){
+    mn.classList.remove('o');b.classList.remove('o');
+  }
+});
+
+// ── SCROLL ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('sc',window.scrollY>40);
+},{ passive:true });
+
+// ── REVEAL ──
+function initReveal(){
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');io.unobserve(e.target);}});
+  },{threshold:0.1});
+  document.querySelectorAll('.pg.on .r').forEach(el=>{el.classList.remove('v');io.observe(el);});
+}
+initReveal();
+
+// ── FORM ──
+function send(){
+  const b=document.getElementById('sbtn');
+  b.textContent='Відправлено ✓';b.style.background='var(--gold-d)';b.disabled=true;
+}
+const TG_TOKEN = '';
+const TG_CHAT  = '';
+// ═══════════════════════════════════════════════════
+
+// ── MODAL ──
+function openModal(){
+  const ov=document.getElementById('modalOverlay');
+  ov.classList.add('open');
+  document.body.style.overflow='hidden';
+
+  // Show TG hint if not configured
+  document.getElementById('tgHint').classList.toggle('show', !TG_TOKEN || !TG_CHAT);
+
+  // Build summary from selected services
+  const keys=Object.keys(sel);
+  const sum=document.getElementById('modalSummary');
+  const txt=document.getElementById('modalSummaryText');
+  if(keys.length>0){
+    const lines=keys.map(k=>NM[k]+' — '+(P[k]?P[k][cls]:'')+' ₴');
+    const total=keys.reduce((a,k)=>a+(P[k]?P[k][cls]:0),0);
+    txt.innerHTML=lines.join('<br>')+'<br><strong style="color:var(--gold);font-weight:400">Разом: '+total.toLocaleString('uk-UA')+' ₴ · Клас '+cls+'</strong>';
+    sum.classList.add('has-data');
+  } else {
+    sum.classList.remove('has-data');
+  }
+
+  // Reset form state
+  document.getElementById('modalBody').classList.remove('hidden');
+  document.getElementById('modalSuccess').classList.remove('show');
+  const btn=document.getElementById('mSubmit');
+  btn.textContent='Надіслати заявку';btn.disabled=false;
+  setTimeout(()=>document.getElementById('mPhone').focus(),400);
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function closeModalOutside(e){
+  if(e.target===document.getElementById('modalOverlay')) closeModal();
+}
+
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
+async function submitBooking(){
+  const phone=document.getElementById('mPhone').value.trim();
+  const name=document.getElementById('mName').value.trim();
+
+  if(!phone){
+    document.getElementById('mPhone').style.borderColor='#c0392b';
+    document.getElementById('mPhone').focus();
+    setTimeout(()=>document.getElementById('mPhone').style.borderColor='',2000);
+    return;
+  }
+
+  const btn=document.getElementById('mSubmit');
+  btn.textContent='Надсилаємо…';btn.disabled=true;
+
+  // Build message
+  const keys=Object.keys(sel);
+  const total=keys.reduce((a,k)=>a+(P[k]?P[k][cls]:0),0);
+  const svcList=keys.length ? keys.map(k=>NM[k]+' ('+P[k][cls]+' ₴)').join('\n  • ') : 'не вказано';
+  const now=new Date();
+  const time=now.toLocaleString('uk-UA',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+  const msg=
+`🚗 *Нова заявка — Royal Автомийка*
+
+👤 Ім'я: ${name||'не вказано'}
+📞 Телефон: ${phone}
+🏷 Клас авто: ${cls}
+${keys.length ? `\n📋 Обрані послуги:\n  • ${svcList}\n\n💰 Приблизна сума: ${total.toLocaleString('uk-UA')} ₴` : ''}
+🕐 Час заявки: ${time}`;
+
+  let sent=false;
+
+  if(TG_TOKEN && TG_CHAT){
+    try{
+      const res=await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({chat_id:TG_CHAT,text:msg,parse_mode:'Markdown'})
+      });
+      const data=await res.json();
+      sent=data.ok;
+    }catch(e){
+      console.error('Telegram error:',e);
+    }
+  } else {
+    // Dev mode — log to console
+    console.log('📬 ЗАЯВКА (Telegram не налаштовано):\n'+msg);
+    sent=true; // show success anyway in dev
+  }
+
+  if(sent){
+    document.getElementById('modalBody').classList.add('hidden');
+    document.getElementById('modalSuccess').classList.add('show');
+  } else {
+    btn.textContent='Спробуйте ще раз';btn.disabled=false;
+    alert('Щось пішло не так. Будь ласка, зателефонуйте нам напряму.');
+  }
+}
+
+// ── CONTACTS PAGE FORM ──
+function send(){
+  const b=document.getElementById('sbtn');
+  b.textContent='Відправлено ✓';b.style.background='var(--gold-d)';b.disabled=true;
+}
+</script>
+</body>
+</html>
