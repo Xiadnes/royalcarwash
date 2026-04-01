@@ -61,7 +61,7 @@ nav.sc{border-bottom-color:var(--bdr)}
 .btn-g:hover{background:var(--gold-d)}
 .btn-o{display:inline-flex;align-items:center;gap:8px;padding:13px 32px;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Jost',sans-serif;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .3s;font-weight:400;-webkit-appearance:none}
 .btn-o:hover{background:var(--gold);color:var(--white)}
-.scue{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);animation:fi .8s ease .9s both}
+.scue{position:absolute;bottom:36px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);animation:fi .8s ease .9s both}
 .sline{width:1px;height:44px;background:linear-gradient(to bottom,var(--gold-l),transparent);animation:drip 2s ease-in-out infinite}
 @keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
@@ -259,6 +259,94 @@ footer{border-top:1px solid var(--bdr);padding:32px 40px;display:flex;align-item
     display: inline-block; /* Необходимо для работы transform */
     transform: scaleX(-1); /* Отразить по горизонтали */
   }
+
+/* ─── MODAL ─── */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(44,36,22,.62);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal{background:var(--cream);max-width:480px;width:100%;position:relative;animation:pin .35s ease both;margin:auto}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;padding:28px 28px 0;gap:12px}
+.modal-pretitle{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--dark);line-height:1.1}
+.modal-title em{font-style:italic;color:var(--gold)}
+.modal-close{background:none;border:1px solid var(--bdr);width:32px;height:32px;cursor:pointer;font-size:14px;color:var(--text2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.modal-close:hover{border-color:var(--gold);color:var(--gold)}
+#modalBody{display:block}
+#modalBody.hidden{display:none}
+.tg-hint{margin:12px 28px 0;background:rgba(212,181,122,.12);border:1px solid var(--gold-p);padding:9px 14px;font-size:11px;color:var(--text2);line-height:1.6;display:none}
+.tg-hint.show{display:block}
+.modal-info{margin:16px 28px 0;background:rgba(212,181,122,.09);border:1px solid var(--gold-p);padding:11px 14px;font-size:12px;color:var(--text2);line-height:1.65;display:flex;gap:8px;align-items:flex-start}
+.modal-info-icon{flex-shrink:0}
+.modal-summary{margin:14px 28px 0;border:1px solid var(--bdr);padding:14px 16px;display:none}
+.modal-summary.has-data{display:block}
+.modal-summary-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.modal-summary-text{font-size:12px;color:var(--text2);line-height:1.75}
+.mfields{padding:16px 28px 0;display:flex;flex-direction:column;gap:10px}
+.mfield-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text2);margin-bottom:6px}
+.modal-submit{display:block;margin:16px 28px 28px;width:calc(100% - 56px);padding:15px;background:var(--gold);color:var(--white);font-family:'Jost',sans-serif;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s;font-weight:400}
+.modal-submit:hover{background:var(--gold-d)}
+.modal-submit:disabled{opacity:.6;cursor:default}
+.modal-success{display:none;padding:52px 28px;text-align:center}
+.modal-success.show{display:block}
+.success-icon{display:inline-flex;width:56px;height:56px;border:1px solid var(--gold);border-radius:50%;align-items:center;justify-content:center;font-size:22px;color:var(--gold);margin-bottom:20px}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--dark);line-height:1.1;margin-bottom:12px}
+.success-title em{font-style:italic;color:var(--gold)}
+.success-text{font-size:13px;color:var(--text2);line-height:1.8}
+
+/* ─── CAFE MENU CATEGORIES ─── */
+.mcatsec{margin-bottom:36px}
+.mcathead{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--dark);padding:12px 0 11px;border-bottom:2px solid var(--bdr2);margin-bottom:1px;font-weight:400}
+.mc{display:flex;flex-direction:column}
+.mprices{display:flex;flex-direction:column;gap:4px;margin-top:auto;padding-top:10px}
+.mprices span{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--text2)}
+.mprices b{font-weight:400;color:var(--gold)}
+
+/* ─── MAP ─── */
+.mapbox{border:1px solid var(--bdr);min-height:300px;overflow:hidden;margin-bottom:18px;background:var(--cream2)}
+.mapbox iframe{display:block;width:100%;height:300px;border:0}
+
+/* ─── RESPONSIVE 430px (iPhone 14/15 Plus, Pro Max) ─── */
+@media(max-width:430px){
+  nav{padding:0 16px}
+  .sec{padding:48px 16px}
+  .svctop{padding:72px 16px 24px}
+  .csec{padding:0 16px 24px}
+  .bldr{padding:0 16px 16px}
+  .total{padding:12px 16px}
+  .cafein{padding:72px 16px 36px}
+  .msec{padding:0 16px 36px}
+  .cgal{padding:0 16px 48px}
+  .conwrap{padding:72px 16px 48px}
+  footer{padding:20px 16px}
+  .qband{padding:48px 16px}
+  .fwrap{padding:20px 16px}
+}
+
+/* ─── RESPONSIVE 390px (iPhone 14/15, Pixel 7) ─── */
+@media(max-width:390px){
+  .htitle{font-size:clamp(38px,13vw,58px)}
+  .h1{font-size:clamp(34px,11vw,54px)}
+  .h2{font-size:clamp(26px,9vw,42px)}
+  .mgrid{grid-template-columns:1fr}
+  .pkrow{gap:10px}
+  .btn-g,.btn-o{font-size:12px;letter-spacing:2px;padding:12px 20px}
+  .fwrap{padding:18px 14px}
+  .modal{max-width:100%}
+  .modal-head{padding:22px 18px 0}
+  .modal-info,.tg-hint,.modal-summary{margin-left:18px;margin-right:18px}
+  .mfields{padding:14px 18px 0}
+  .modal-submit{margin:14px 18px 22px;width:calc(100% - 36px)}
+}
+
+/* ─── RESPONSIVE 360px (Samsung Galaxy S, small Android) ─── */
+@media(max-width:360px){
+  .htitle{font-size:clamp(32px,12vw,48px)}
+  .hbadge{font-size:11px;letter-spacing:3px;padding:6px 14px}
+  .logo{font-size:28px;letter-spacing:1.5px}
+  .cltr{font-size:32px}
+  .cgrid{grid-template-columns:1fr 1fr}
+  .si{padding:11px 12px}
+  .sn{font-size:12px}
+}
 </style>
 </head>
 <body>
@@ -540,26 +628,62 @@ footer{border-top:1px solid var(--bdr);padding:32px 40px;display:flex;align-item
       <div class="calbl">Про нас</div>
       <p>Свіжообсмажена зернова кава. Домашня випічка щодня. Wi-Fi і розетки — зручне місце почекати або просто відпочити.</p>
       <div class="cstats">
-        <div><div class="csval">07:00</div><div class="cslbl">відкриваємось</div></div>
-        <div><div class="csval">22:00</div><div class="cslbl">закриваємось</div></div>
-        <div><div class="csval">Wi-Fi</div><div class="cslbl">безкоштовно</div></div>
+        <div><div class="csval">08:00</div><div class="cslbl">відкриваємось</div></div>
+        <div><div class="csval">20:00</div><div class="cslbl">закриваємось</div></div>
+        <div><div class="csval">Wi-Fi</div><div class="cslbl">CarWash</div></div>
       </div>
     </div>
   </div>
 
   <div class="msec">
     <div class="lbl">Меню</div>
-    <h2 class="h2 r" style="margin-bottom:28px">Напої та <em>смаколики</em></h2>
-    <div class="mgrid">
-      <div class="mc"><div class="mcat">Кава</div><div class="mname">Еспресо</div><div class="mnote">-</div><div class="mprice">55 ₴</div></div>
-      <div class="mc"><div class="mcat">Кава</div><div class="mname">Капучіно</div><div class="mnote">-</div><div class="mprice">75 ₴</div></div>
-      <div class="mc"><div class="mcat">Кава</div><div class="mname">Флет Вайт</div><div class="mnote">-</div><div class="mprice">80 ₴</div></div>
-      <div class="mc" style="border-top:1px solid var(--bdr)"><div class="mcat">Фірмове</div><div class="mname">Раф лавандовий</div><div class="mnote">-</div><div class="mprice">95 ₴</div></div>
-      <div class="mc" style="border-top:1px solid var(--bdr)"><div class="mcat">Чай</div><div class="mname">Earl Grey</div><div class="mnote">-</div><div class="mprice">65 ₴</div></div>
-      <div class="mc" style="border-top:1px solid var(--bdr)"><div class="mcat">Напій</div><div class="mname">Лимонад</div><div class="mnote">-</div><div class="mprice">80 ₴</div></div>
-      <div class="mc" style="border-top:1px solid var(--bdr)"><div class="mcat">Випічка</div><div class="mname">Круасан</div><div class="mnote">-</div><div class="mprice">65 ₴</div></div>
-      <div class="mc" style="border-top:1px solid var(--bdr)"><div class="mcat">Їжа</div><div class="mname">Тост з лососем</div><div class="mnote">-</div><div class="mprice">120 ₴</div></div>
-      <div class="mc" style="border-top:1px solid var(--bdr)"><div class="mcat">Десерт</div><div class="mname">Брауні</div><div class="mnote">-</div><div class="mprice">70 ₴</div></div>
+    <h2 class="h2 r" style="margin-bottom:28px">Наше <em>меню</em></h2>
+
+    <!-- НАПОЇ -->
+    <div class="mcatsec">
+      <div class="mcathead r">☕ Напої</div>
+      <div class="mgrid">
+        <div class="mc"><div class="mcat">Кава</div><div class="mname">Еспресо</div><div class="mnote">Класичний насичений еспресо</div><div class="mprices"><span>30 мл — <b>55 ₴</b></span><span>60 мл — <b>65 ₴</b></span></div></div>
+        <div class="mc"><div class="mcat">Кава</div><div class="mname">Американо</div><div class="mnote">Еспресо з гарячою водою</div><div class="mprices"><span>180 мл — <b>60 ₴</b></span><span>250 мл — <b>70 ₴</b></span></div></div>
+        <div class="mc"><div class="mcat">Кава</div><div class="mname">Капучіно</div><div class="mnote">Еспресо з ніжною молочною пінкою</div><div class="mprices"><span>180 мл — <b>75 ₴</b></span><span>350 мл — <b>90 ₴</b></span></div></div>
+        <div class="mc"><div class="mcat">Кава</div><div class="mname">Флет Вайт</div><div class="mnote">Щільне молоко, насичений смак</div><div class="mprices"><span>150 мл — <b>80 ₴</b></span><span>250 мл — <b>95 ₴</b></span></div></div>
+        <div class="mc"><div class="mcat">Кава</div><div class="mname">Лате</div><div class="mnote">М'який смак для тривалого задоволення</div><div class="mprices"><span>250 мл — <b>85 ₴</b></span><span>350 мл — <b>95 ₴</b></span></div></div>
+        <div class="mc"><div class="mcat">Фірмове</div><div class="mname">Раф лавандовий</div><div class="mnote">Крем, еспресо, лавандовий сироп</div><div class="mprices"><span>250 мл — <b>95 ₴</b></span></div></div>
+        <div class="mc"><div class="mcat">Чай</div><div class="mname">Earl Grey</div><div class="mnote">Класичний чорний чай з бергамотом</div><div class="mprices"><span>400 мл — <b>65 ₴</b></span></div></div>
+        <div class="mc"><div class="mcat">Чай</div><div class="mname">Трав'яний збір</div><div class="mnote">М'ята, меліса, ромашка</div><div class="mprices"><span>400 мл — <b>65 ₴</b></span></div></div>
+        <div class="mc"><div class="mcat">Холодний напій</div><div class="mname">Лимонад</div><div class="mnote">Свіжовижатий з м'ятою та льодом</div><div class="mprices"><span>350 мл — <b>80 ₴</b></span><span>500 мл — <b>95 ₴</b></span></div></div>
+      </div>
+    </div>
+
+    <!-- ДОДАТКИ -->
+    <div class="mcatsec">
+      <div class="mcathead r">✦ Додатки</div>
+      <div class="mgrid">
+        <div class="mc"><div class="mcat">Додаток</div><div class="mname">Сироп до напою</div><div class="mnote">Ваніль, карамель, лаванда, горіх, малина</div><div class="mprice">+15 ₴</div></div>
+        <div class="mc"><div class="mcat">Додаток</div><div class="mname">Рослинне молоко</div><div class="mnote">Вівсяне, мигдалеве, соєве, кокосове</div><div class="mprice">+20 ₴</div></div>
+        <div class="mc"><div class="mcat">Додаток</div><div class="mname">Додатковий шот</div><div class="mnote">Ще один шот еспресо до будь-якого напою</div><div class="mprice">+20 ₴</div></div>
+      </div>
+    </div>
+
+    <!-- ВИПІЧКА -->
+    <div class="mcatsec">
+      <div class="mcathead r">🥐 Випічка</div>
+      <div class="mgrid">
+        <div class="mc"><div class="mcat">Випічка</div><div class="mname">Круасан</div><div class="mnote">Класичний листковий, свіжий щодня</div><div class="mprice">65 ₴</div></div>
+        <div class="mc"><div class="mcat">Випічка</div><div class="mname">Круасан з начинкою</div><div class="mnote">Шоколад, мигдаль або вершковий сир</div><div class="mprice">85 ₴</div></div>
+        <div class="mc"><div class="mcat">Їжа</div><div class="mname">Тост з лососем</div><div class="mnote">Хліб бріош, крем-сир, норвезький лосось</div><div class="mprice">120 ₴</div></div>
+      </div>
+    </div>
+
+    <!-- СМАКОЛИКИ -->
+    <div class="mcatsec">
+      <div class="mcathead r">🍫 Смаколики</div>
+      <div class="mgrid">
+        <div class="mc"><div class="mcat">Десерт</div><div class="mname">Брауні</div><div class="mnote">Насичений шоколадний, з волоськими горіхами</div><div class="mprice">70 ₴</div></div>
+        <div class="mc"><div class="mcat">Десерт</div><div class="mname">Чізкейк</div><div class="mnote">Ніжний вершковий, з ягідним топінгом</div><div class="mprice">90 ₴</div></div>
+        <div class="mc"><div class="mcat">Десерт</div><div class="mname">Мафін</div><div class="mnote">Чорниця, банан-шоколад або лимон-мак</div><div class="mprice">65 ₴</div></div>
+        <div class="mc"><div class="mcat">Десерт</div><div class="mname">Тарталетка</div><div class="mnote">Заварний крем з сезонними ягодами</div><div class="mprice">75 ₴</div></div>
+      </div>
     </div>
   </div>
 
@@ -591,16 +715,8 @@ footer{border-top:1px solid var(--bdr);padding:32px 40px;display:flex;align-item
       </div>
     </div>
     <div>
-      <div>Royal CarWash & Coffee</div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1272.4647217577344!2d30.855938039672846!3d50.36787009999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4e9000cab87ff%3A0x530657a4613a575f!2sRoyal%20CarWash!5e0!3m2!1sru!2sua!4v1774730244531!5m2!1sru!2sua" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
-      <div class="fwrap">
-        <div class="flbl2">Напишіть нам</div>
-        <div class="ffields">
-          <input type="text" placeholder="Ваше ім'я">
-          <input type="tel" placeholder="Номер телефону">
-          <textarea rows="3" placeholder="Ваше питання"></textarea>
-          <button class="btn-g" style="align-self:flex-start" id="sbtn" onclick="send()">Надіслати</button>
-        </div>
-      </div>
+      <div class="mapbox"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1272.4647217577344!2d30.855938039672846!3d50.36787009999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4e9000cab87ff%3A0x530657a4613a575f!2sRoyal%20CarWash!5e0!3m2!1sru!2sua!4v1774730244531!5m2!1sru!2sua" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+
     </div>
   </div>
   </div>
@@ -611,6 +727,56 @@ footer{border-top:1px solid var(--bdr);padding:32px 40px;display:flex;align-item
     <div class="flinks"><a href="#" onclick="go('home');return false">Головна</a><a href="#" onclick="go('services');return false">Послуги</a><a href="#" onclick="go('cafe');return false">Кав'ярня</a></div>
   </footer>
 
+<!-- ██ BOOKING MODAL ██ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+    <div class="modal-head">
+      <div class="modal-head-left">
+        <div class="modal-pretitle">Залишити заявку</div>
+        <div class="modal-title" id="modalTitle">Передзвонимо<br><em>найближчим часом</em></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Закрити">✕</button>
+    </div>
+
+    <div id="modalBody">
+      <div class="tg-hint" id="tgHint">⚠ Telegram не налаштовано — заявку буде збережено в консолі.</div>
+
+      <div class="modal-info">
+        <span class="modal-info-icon">📞</span>
+        <span>Залиште номер — ми передзвонимо у найближчий робочий час (з 08:00 до 20:00).</span>
+      </div>
+
+      <!-- Автосумарний блок обраних послуг -->
+      <div class="modal-summary" id="modalSummary">
+        <div class="modal-summary-label">Ваш вибір</div>
+        <div class="modal-summary-text" id="modalSummaryText"></div>
+      </div>
+
+      <div class="mfields">
+        <div class="mfield-wrap">
+          <div class="mfield-label">Ваше ім'я</div>
+          <input type="text" id="mName" placeholder="Як до вас звертатись?" autocomplete="name">
+        </div>
+        <div class="mfield-wrap">
+          <div class="mfield-label">Номер телефону *</div>
+          <input type="tel" id="mPhone" placeholder="+38 (0XX) XXX-XX-XX" autocomplete="tel" required>
+        </div>
+      </div>
+
+      <button class="modal-submit" id="mSubmit" onclick="submitBooking()">
+        Надіслати заявку
+      </button>
+    </div>
+
+    <div class="modal-success" id="modalSuccess">
+      <span class="success-icon">✓</span>
+      <div class="success-title">Заявку<br><em>прийнято!</em></div>
+      <p class="success-text">Ми передзвонимо вам у найближчий робочий час.<br>Дякуємо, що обрали Royal!</p>
+    </div>
+
+  </div>
+</div>
 
 <script>
 // ── DATA ──
@@ -717,14 +883,13 @@ function initReveal(){
 }
 initReveal();
 
-// ── FORM ──
-function send(){
-  const b=document.getElementById('sbtn');
-  b.textContent='Відправлено ✓';b.style.background='var(--gold-d)';b.disabled=true;
-}
-const TG_TOKEN = '';
-const TG_CHAT  = '';
-// ═══════════════════════════════════════════════════
+// ── КОНФІГ — заповніть після запуску bot.py ──────────
+// BOT_ENDPOINT — URL вашого Python-бота (з bot.py)
+// Локально:  'http://localhost:8080/booking'
+// На сервері: 'https://ваш-домен.com/booking'
+const BOT_ENDPOINT     = 'http://localhost:8080/booking';
+const WEBHOOK_SECRET   = 'royal-secret-2026'; // має збігатись з .env
+// ─────────────────────────────────────────────────────
 
 // ── MODAL ──
 function openModal(){
@@ -732,10 +897,10 @@ function openModal(){
   ov.classList.add('open');
   document.body.style.overflow='hidden';
 
-  // Show TG hint if not configured
-  document.getElementById('tgHint').classList.toggle('show', !TG_TOKEN || !TG_CHAT);
+  // Підказка якщо ендпоінт не налаштований
+  document.getElementById('tgHint').classList.toggle('show', !BOT_ENDPOINT);
 
-  // Build summary from selected services
+  // Збираємо обрані послуги
   const keys=Object.keys(sel);
   const sum=document.getElementById('modalSummary');
   const txt=document.getElementById('modalSummaryText');
@@ -748,7 +913,7 @@ function openModal(){
     sum.classList.remove('has-data');
   }
 
-  // Reset form state
+  // Скидаємо стан форми
   document.getElementById('modalBody').classList.remove('hidden');
   document.getElementById('modalSuccess').classList.remove('show');
   const btn=document.getElementById('mSubmit');
@@ -781,40 +946,43 @@ async function submitBooking(){
   const btn=document.getElementById('mSubmit');
   btn.textContent='Надсилаємо…';btn.disabled=true;
 
-  // Build message
+  // Збираємо дані послуг
   const keys=Object.keys(sel);
   const total=keys.reduce((a,k)=>a+(P[k]?P[k][cls]:0),0);
-  const svcList=keys.length ? keys.map(k=>NM[k]+' ('+P[k][cls]+' ₴)').join('\n  • ') : 'не вказано';
-  const now=new Date();
-  const time=now.toLocaleString('uk-UA',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  const services=keys.length
+    ? keys.map(k=>NM[k]+' ('+P[k][cls]+' ₴)').join(', ')
+    : '';
 
-  const msg=
-`🚗 *Нова заявка — Royal Автомийка*
-
-👤 Ім'я: ${name||'не вказано'}
-📞 Телефон: ${phone}
-🏷 Клас авто: ${cls}
-${keys.length ? `\n📋 Обрані послуги:\n  • ${svcList}\n\n💰 Приблизна сума: ${total.toLocaleString('uk-UA')} ₴` : ''}
-🕐 Час заявки: ${time}`;
+  // Payload для Python-бота
+  const payload={
+    name:    name || '',
+    phone:   phone,
+    car_class: cls,
+    services:  services,
+    total:   total ? String(total) : '0',
+  };
 
   let sent=false;
 
-  if(TG_TOKEN && TG_CHAT){
+  if(BOT_ENDPOINT){
     try{
-      const res=await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
+      const res=await fetch(BOT_ENDPOINT,{
         method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({chat_id:TG_CHAT,text:msg,parse_mode:'Markdown'})
+        headers:{
+          'Content-Type':'application/json',
+          'X-Webhook-Secret': WEBHOOK_SECRET,
+        },
+        body:JSON.stringify(payload),
       });
       const data=await res.json();
-      sent=data.ok;
+      sent=data.ok===true;
     }catch(e){
-      console.error('Telegram error:',e);
+      console.error('Bot error:',e);
     }
   } else {
-    // Dev mode — log to console
-    console.log('📬 ЗАЯВКА (Telegram не налаштовано):\n'+msg);
-    sent=true; // show success anyway in dev
+    // Dev mode — виводимо в консоль
+    console.log('📬 ЗАЯВКА (бот не налаштовано):', payload);
+    sent=true;
   }
 
   if(sent){
@@ -826,11 +994,6 @@ ${keys.length ? `\n📋 Обрані послуги:\n  • ${svcList}\n\n💰 �
   }
 }
 
-// ── CONTACTS PAGE FORM ──
-function send(){
-  const b=document.getElementById('sbtn');
-  b.textContent='Відправлено ✓';b.style.background='var(--gold-d)';b.disabled=true;
-}
 </script>
 </body>
 </html>
